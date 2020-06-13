@@ -1,0 +1,53 @@
+@import './main.scss';
+
+.home{
+    margin-top: 5rem;
+    margin-left: 5rem;
+
+
+    .cards{
+        
+        @include flexbox(space-around,row);
+        .card{
+            margin-top: 40px;
+            width: 280px;
+            height: 150px;
+            background-color: $primary;
+            border-radius: 20px;
+           
+            
+            &__title{
+                margin-top: 20px;
+                margin-left: 30px;
+                color: $yel;
+                font-size: 20px;
+            }
+
+            &__row{
+
+             @include flexbox(center,row);
+            
+             margin-top: 15px;
+                &__icon{
+                  
+                    svg{
+                        width: 35px;
+                        
+                        color: $blue;
+                        
+                    }
+                    
+                }
+                &__value{
+                    color: $gre;
+                    font-size: 40px;
+                    font-weight: 800;
+                }
+            }
+           
+
+        }
+       
+        
+    }
+}

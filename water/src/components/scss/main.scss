@@ -2,6 +2,9 @@ $font : 'Roboto';
 $primary : #2A2E35;
 $secondary : #12181B;
 $tri :#707070;
+$yel : #E69A02;
+$gre : #0CD297;
+$blue : #00AEE3;
 
 
 @mixin flexbox($pos,$dir) {
@@ -20,7 +23,7 @@ $tri :#707070;
     grid-gap: 35px;
 }
 
-body{
-    font-family: $font;
-    background-color: $secondary;
-}
+// body{
+//     font-family: $font;
+//     background-color: $secondary;
+// }
