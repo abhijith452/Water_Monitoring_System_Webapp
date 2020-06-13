@@ -1,0 +1,20 @@
+@import './main.scss';
+
+
+.nav{
+    width: 5rem;
+    height: 100vh;
+    background-color: $primary;
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include flexbox(unset,column);
+
+    svg{
+        
+        z-index: 3;
+        color:$tri;
+        width: 35px;
+        margin:30px 0 ;
+    }
+}
