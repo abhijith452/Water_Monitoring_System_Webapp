@@ -4,10 +4,11 @@
     margin-top: 5rem;
     margin-left: 5rem;
 
-
+    @include flexbox(unset,column);
     .cards{
+        width: 1400px;
         
-        @include flexbox(space-around,row);
+        @include flexbox(space-between,row);
         .card{
             margin-top: 40px;
             width: 280px;
@@ -50,4 +51,17 @@
        
         
     }
+}
+
+@media only screen and (max-width: 768px){
+    .home{
+        margin-top: 5rem;
+        margin-left: 0;    
+        @include flexbox(unset,column);
+        .cards{
+            @include flexbox(center,column);
+           
+        }
+    }
+
 }

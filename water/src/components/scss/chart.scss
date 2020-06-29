@@ -1,0 +1,25 @@
+@import './main.scss';
+
+.chart{
+    width: 1400px;
+    height: 500px;
+    background-color: $primary;
+    margin-top: 100px;
+   
+        @include flexbox(center,row);
+
+        &__chart{
+            margin: auto 0;
+            width: 1200px;
+        }
+
+
+
+}
+@media only screen and (max-width: 768px){
+
+    .chart{
+        width: 80%;
+        height: auto;
+    }
+}
