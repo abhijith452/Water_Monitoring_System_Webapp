@@ -38,8 +38,19 @@ function ApexChart(props){
 
 return(
  <div className ="chart">
-  
-   <ReactApexChart className ="chart__container__chart" options={options} series = {series} type="area"/>
+ 
+  <div className="chart__container">
+  <h2 className="chart__container__title">Dashboard</h2>
+   <div className="chart__container__parameters">
+     <p className="chart__container__parameters__value">Devices connected : <span>250rpm</span></p>
+     <p className="chart__container__parameters__value">Pressure : <span>250rpm</span></p>
+     <p className="chart__container__parameters__value">Ph value : <span>250rpm</span></p>
+     <p className="chart__container__parameters__value">Flow rate : <span>250rpm</span></p>
+
+   </div>
+   <p className="chart__container__device">Device name : Raspbery pie at kottayam</p>
+   <ReactApexChart className ="chart__container__chart" options={options} series = {series} height ={450}type="area"/>
+   </div>
  
  </div> 
 )

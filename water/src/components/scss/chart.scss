@@ -1,18 +1,42 @@
 @import './main.scss';
 
 .chart{
-    width: 1400px;
-    height: 500px;
-    background-color: $primary;
-    margin-top: 100px;
+    width: 1200px;
+    height: 660px;
+    background-image: linear-gradient(#002056,#001B47);
+    border-radius: 30px;
+ 
    
-        @include flexbox(center,row);
+        @include flexbox(center,unset);
 
-        &__chart{
-            margin: auto 0;
-            width: 1200px;
+        &__container{
+               width: 90%;
+        
+        &__title{
+            color: white;
+            margin-top: 40px;
+            font-size: 30px;
+        }       
+
+        &__parameters{
+            @include flexbox(space-between,row);
+            color: #56E4EE;
+            margin: 25px 0;
+            &__value{
+                font-size: medium;
+            }
+        }
+        &__device{
+            color: #56E4EE;
+            margin-bottom: 20px;
+            font-size: medium;
         }
 
+        &__chart{
+            width: 100%;
+      
+        }
+    }
 
 
 }

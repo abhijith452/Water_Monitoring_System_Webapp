@@ -2,13 +2,14 @@
 
 
 .nav{
-    width: 5rem;
+    width: 4rem;
     height: 100vh;
     background-color: $primary;
     position: fixed;
     top: 0;
     left: 0;
-    @include flexbox(unset,column);
+    @include flexbox(center,column);
+    opacity: .6;
 
     svg{
         
