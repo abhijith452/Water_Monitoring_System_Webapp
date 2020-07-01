@@ -1,25 +1,45 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import './scss/home.scss';
 import Chart from './chart';
 
+import io from 'socket.io-client';
+const socket = io('http://localhost:5000');
+
 function Home() {
 
+  const [dataReact, setData] = useState([]);
+
+  useEffect(() => {
+    socket.on('data1', res => {
+      setData(res);
+     
+     
+    });
+  }, []);
+  console.log(dataReact.MessageDate)
+if(dataReact.length > 10)
+{
+  dataReact.shift();
+
+}
+
   const data = [31, 40, 28, 51, 42, 109, 100];
-  const data1 = [32, 41, 29, 52, 45, 100, 120];
-  const data2= [10, 46, 28, 40, 49, 111, 130];
+  const data1 = [];
+  const data2= [];
   const y = [
-    "2018-09-19T00:00:00.000Z", 
-    "2018-09-19T01:30:00.000Z",
-    "2018-09-19T02:30:00.000Z", 
-    "2018-09-19T03:30:00.000Z", 
-    "2018-09-19T04:30:00.000Z", 
-    "2018-09-19T05:30:00.000Z", 
-    "2018-09-19T06:30:00.000Z"]
+    "2020-07-01T17:13:00.000Z", 
+    "2020-07-01T17:15:01.000Z",
+    "2020-07-01T17:15:38.000Z", 
+    "2020-07-01T17:15:48.000Z", 
+    "2020-07-01T17:15:59.000Z", 
+    "2020-07-01T17:16:09.000Z", 
+    "2020-07-01T17:17:44.000Z"]
   return (
     <div className="home">
 
        <div className ="cards">
-       <Chart x ={data} x2 ={data1} x3 ={data2} y ={y} name="pressure"/>
+       <Chart x ={dataReact.temperature} x2 ={data1} x3 ={data2} y ={dataReact.MessageDate} name="pressure"/>
       </div>
     </div>
   );

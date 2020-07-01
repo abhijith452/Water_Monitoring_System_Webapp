@@ -16,7 +16,8 @@ function ApexChart(props){
   const options = {
     chart: {
       height: 350,
-      type: 'area'
+      type: 'area',
+      foreColor: 'white'
     },
     dataLabels: {
       enabled: false
@@ -25,14 +26,25 @@ function ApexChart(props){
       curve: 'smooth'
     },
     xaxis: {
+      show:true,
       type: 'datetime',
-      categories: props.y
+      categories: props.y,
+      
+    },
+    
+
+    yaxis : {
+      show:false,
     },
     tooltip: {
       x: {
-        format: 'dd/MM/yy HH:mm'
+        format: 'dd/MM/yy HH:mm',
+
       },
     },
+    grid: {
+      show: false,
+    }
   };
 
 
