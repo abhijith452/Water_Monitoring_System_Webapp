@@ -41,7 +41,7 @@ function ApexChart() {
   const lineChart = (
     dataReact[0] ? (
       <Line
-        height="120"
+        height={120}
         className="chart__container__chart"
         data={{
           labels: dataReact.map(({ date }) => date),
@@ -111,7 +111,23 @@ function ApexChart() {
       />
     ) : 'loading...'
   );
-
+  function colorChange(parameter,min,max) {
+    if (parameter < min) {
+     return {
+        color: 'red'
+      }
+    }
+    else if(parameter>max){
+      return {
+        color: 'red'
+      }
+    }
+    else {
+     return {
+        color: 'rgb(105, 255, 45)'
+      }
+    }
+  }
   return (
     <div className="chart">
 
@@ -119,10 +135,10 @@ function ApexChart() {
         <div>
         <h2 className="chart__container__title">Dashboard</h2>
         <div className="chart__container__parameters">
-          <p className="chart__container__parameters__value">Devices connected : <span>1</span></p>
-          <p className="chart__container__parameters__value">Pressure : <span>{Pressure} pa</span></p>
-          <p className="chart__container__parameters__value">Ph value : <span>{Ph}</span></p>
-          <p className="chart__container__parameters__value">Flow rate : <span>{Flowrate}rpm</span></p>
+          <p className="chart__container__parameters__value">Devices connected : <span >1</span></p>
+          <p className="chart__container__parameters__value">Pressure : <span style={colorChange(Pressure,2.5)}>{Pressure} pa</span></p>
+          <p className="chart__container__parameters__value">Ph value : <span style={colorChange(Ph,5,8.5)}>{Ph}</span></p>
+          <p className="chart__container__parameters__value">Flow rate : <span style={colorChange(Flowrate,6)}>{Flowrate}rpm</span></p>
 
         </div>
         <p className="chart__container__device">Device name : {deviceName}</p>
