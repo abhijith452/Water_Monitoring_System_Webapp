@@ -1,52 +1,60 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { Line, Bar } from 'react-chartjs-2';
 import './scss/chart.scss';
+
+
+import io from 'socket.io-client';
+const socket = io('http://localhost:5000');
+
 function ApexChart(props){
+
+  const [dataReact, setData] = useState([]);
+
+  useEffect(() => {
+    socket.on('data1', res => {
+      setData(currentData => [...currentData, res]);
+     
+     
+    });
+  }, []);
+  console.log(dataReact.MessageDate)
+if(dataReact.length > 10)
+{
+  dataReact.shift();
+
+}
   
- const series = [{
-    name: props.name,
-    data: props.x,
-  },{
-    name: props.name,
-    data: props.x2,
-  },{
-    name: props.name,
-    data: props.x3,
-  }];
-  const options = {
-    chart: {
-      height: 350,
-      type: 'area',
-      foreColor: 'white'
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      show:true,
-      type: 'datetime',
-      categories: props.y,
-      
-    },
-    
-
-    yaxis : {
-      show:false,
-    },
-    tooltip: {
-      x: {
-        format: 'dd/MM/yy HH:mm',
-
-      },
-    },
-    grid: {
-      show: false,
-    }
-  };
-
+const lineChart = (
+  dataReact[0] ? (
+    <Line
+      data={{
+        labels: dataReact.map(({ date }) => date),
+        datasets: [{
+          data: dataReact.map((data) => data.temperature),
+          label: 'Pressure',
+          borderColor: 'green',
+          fill: true,
+        }, {
+          data: dataReact.map((data) => data.Humidity),
+          label: 'PH value',
+          borderColor: 'yellow',
+         
+          fill: true,
+        },
+        ],
+      }}
+      options = {{
+        scales: {
+            xAxes: [{
+                type: 'time',
+                
+            }]
+        }}}
+    />
+  ) : 'loading...'
+);
 
 return(
  <div className ="chart">
@@ -61,7 +69,7 @@ return(
 
    </div>
    <p className="chart__container__device">Device name : Raspbery pie at kottayam</p>
-   <ReactApexChart className ="chart__container__chart" options={options} series = {series} height ={450}type="area"/>
+   {lineChart}
    </div>
  
  </div> 

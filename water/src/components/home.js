@@ -1,28 +1,12 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+
 import './scss/home.scss';
 import Chart from './chart';
 
-import io from 'socket.io-client';
-const socket = io('http://localhost:5000');
 
 function Home() {
 
-  const [dataReact, setData] = useState([]);
-
-  useEffect(() => {
-    socket.on('data1', res => {
-      setData(res);
-     
-     
-    });
-  }, []);
-  console.log(dataReact.MessageDate)
-if(dataReact.length > 10)
-{
-  dataReact.shift();
-
-}
+ 
 
   const data = [31, 40, 28, 51, 42, 109, 100];
   const data1 = [];
@@ -39,7 +23,7 @@ if(dataReact.length > 10)
     <div className="home">
 
        <div className ="cards">
-       <Chart x ={dataReact.temperature} x2 ={data1} x3 ={data2} y ={dataReact.MessageDate} name="pressure"/>
+       <Chart name="pressure"/>
       </div>
     </div>
   );
