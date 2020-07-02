@@ -30,7 +30,7 @@ const lineChart = (
   dataReact[0] ? (
     <Line
       data={{
-        labels: dataReact.map(({ date }) => date),
+        labels: dataReact.map(({ times }) => times),
         datasets: [{
           data: dataReact.map((data) => data.temperature),
           label: 'Pressure',
@@ -49,7 +49,7 @@ const lineChart = (
         scales: {
             xAxes: [{
                 type: 'time',
-                
+                distribution: 'series'
             }]
         }}}
     />
