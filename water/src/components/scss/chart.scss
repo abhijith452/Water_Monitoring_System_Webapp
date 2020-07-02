@@ -8,13 +8,16 @@
  
    
         @include flexbox(center,unset);
+        span{
+            color: rgb(105, 255, 45);
+        }
 
         &__container{
                width: 90%;
+               height: 90%;
         
         &__title{
             color: white;
-            margin-top: 40px;
             font-size: 30px;
         }       
 
@@ -32,14 +35,12 @@
             font-size: medium;
         }
 
-        &__chart{
-            width: 100%;
-      
-        }
+       
     }
 
 
 }
+
 @media only screen and (max-width: 768px){
 
     .chart{

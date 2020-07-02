@@ -1,82 +1,140 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import ReactApexChart from 'react-apexcharts';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import './scss/chart.scss';
-
-
 import io from 'socket.io-client';
+
+// Making socket connection with the server
+
 const socket = io('http://localhost:5000');
 
-function ApexChart(props){
+function ApexChart() {
+
+ // Setting up the states
 
   const [dataReact, setData] = useState([]);
+  const [Pressure, setPressure] = useState([]);
+  const [Ph, setPh] = useState([]);
+  const [Flowrate, setFlowrate] = useState([]);
+  const [deviceName, setDevice] = useState([]);
+
+  // Getting the values
 
   useEffect(() => {
     socket.on('data1', res => {
       setData(currentData => [...currentData, res]);
-     
-     
+      setPressure(res.Pressure);
+      setPh(res.Ph);
+      setFlowrate(res.Flowrate);
+      setDevice(res.DeviceId);
     });
   }, []);
-  console.log(dataReact.MessageDate)
-if(dataReact.length > 10)
-{
-  dataReact.shift();
 
-}
-  
-const lineChart = (
-  dataReact[0] ? (
-    <Line
-      data={{
-        labels: dataReact.map(({ times }) => times),
-        datasets: [{
-          data: dataReact.map((data) => data.temperature),
-          label: 'Pressure',
-          borderColor: 'green',
-          fill: true,
-        }, {
-          data: dataReact.map((data) => data.Humidity),
-          label: 'PH value',
-          borderColor: 'yellow',
-         
-          fill: true,
-        },
-        ],
-      }}
-      options = {{
-        scales: {
+// Removing the 10th element form the data Array
+
+  if (dataReact.length > 10) {
+    dataReact.shift();
+  }
+
+  // Configuration of the chart
+
+  const lineChart = (
+    dataReact[0] ? (
+      <Line
+        height="120"
+        className="chart__container__chart"
+        data={{
+          labels: dataReact.map(({ date }) => date),
+          datasets: [{
+            data: dataReact.map((data) => data.Pressure),
+            label: 'Pressure',
+            borderColor: '#F16900',
+            fill: true,
+          }, {
+            data: dataReact.map((data) => data.Ph),
+            label: 'PH value',
+            borderColor: 'yellow',
+
+            fill: true,
+          },
+          {
+            data: dataReact.map((data) => data.Flowrate),
+            label: 'Flowrate',
+            borderColor: '#00F1CA',
+
+            fill: true,
+          }
+          ],
+        }}
+        options={{
+
+          tooltips: {
+            enabled: true,
+            mode: 'x',
+            intersect: true,
+            position: 'average',
+          },
+
+          scales: {
             xAxes: [{
-                type: 'time',
-                distribution: 'series'
+              type: 'time',
+              distribution: 'series',
+              color: 'white',
+              ticks: {
+                fontColor: 'white',
+              },
+              gridLines: {
+                display: false,
+                color: "#FFFFFF"
+              },
+            }],
+            yAxes: [{
+
+              ticks: {
+                fontColor: 'white',
+              },
+              gridLines: {
+                display: false,
+                color: "#FFFFFF"
+              },
             }]
-        }}}
-    />
-  ) : 'loading...'
-);
+          },
+          legend: {
+            fillStyle: 'red',
+            labels: {
+              display: true,
+              fontColor: 'white',
+              defaultFontFamily: 'Opensans'
+            }
+          }
+        }}
+      />
+    ) : 'loading...'
+  );
 
-return(
- <div className ="chart">
- 
-  <div className="chart__container">
-  <h2 className="chart__container__title">Dashboard</h2>
-   <div className="chart__container__parameters">
-     <p className="chart__container__parameters__value">Devices connected : <span>250rpm</span></p>
-     <p className="chart__container__parameters__value">Pressure : <span>250rpm</span></p>
-     <p className="chart__container__parameters__value">Ph value : <span>250rpm</span></p>
-     <p className="chart__container__parameters__value">Flow rate : <span>250rpm</span></p>
+  return (
+    <div className="chart">
 
-   </div>
-   <p className="chart__container__device">Device name : Raspbery pie at kottayam</p>
-   {lineChart}
-   </div>
- 
- </div> 
-)
+      <div className="chart__container">
+        <div>
+        <h2 className="chart__container__title">Dashboard</h2>
+        <div className="chart__container__parameters">
+          <p className="chart__container__parameters__value">Devices connected : <span>1</span></p>
+          <p className="chart__container__parameters__value">Pressure : <span>{Pressure} pa</span></p>
+          <p className="chart__container__parameters__value">Ph value : <span>{Ph}</span></p>
+          <p className="chart__container__parameters__value">Flow rate : <span>{Flowrate}rpm</span></p>
+
+        </div>
+        <p className="chart__container__device">Device name : {deviceName}</p>
+        </div>
+        {lineChart}
+      </div>
+
+    </div>
+  )
 
 }
 
- 
+
 
 export default ApexChart;
